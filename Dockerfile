@@ -32,12 +32,16 @@ RUN yum install -y deltarpm ; \
     sudo hostname make \
     libffi-devel openssl-devel readline-devel sqlite-devel libyaml-devel \
     openssh openssh-server openssh-clients shadow-utils \
-    git-core rpm-build rubygems ruby-devel \
-    python-devel python-setuptools  python-pip python-virtualenv
-RUN gem install -n /usr/bin fpm --no-rdoc --no-ri
-# Disable cache dir to ensure docker cache is used
-RUN pip install --no-cache-dir pyyaml pycrypto jinja2
-# Host configuration
-RUN ssh-keygen -A
+    git git-core rpm-build rubygems ruby-devel \
+    pyt hon-devel python-setuptools python-virtualenv \
+    iproute # required by ansible for ansible_default_ipv4
 
-CMD  ["/usr/lib/systemd/systemd"]
+RUN yum groupinstall -y 'Development Tools'
+
+RUN gem install -n /usr/bin fpm --no-rdoc --no-ri
+
+RUN curl -s https://bootstrap.pypa.io/get-pip.py | python -
+
+RUN pip install --no-cache-dir pyyaml pycrypto jinja2
+
+CMD  ["/usr/sbin/init"]

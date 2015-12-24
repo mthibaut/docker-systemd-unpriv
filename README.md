@@ -73,3 +73,9 @@ As an alternative you can get a pre-built container:
 Or just run it using the default docker command (this should pull the image automatically):
 ```docker run -v /sys/fs/cgroup:/sys/fs/cgroup:ro maci0/systemd```
 For more information see: https://registry.hub.docker.com/u/maci0/systemd/ or http://www.docker.com
+
+To upload to a new container first commit changes:
+```docker commit -m "Adding build tools" -a "Maarten Thibaut" 0c6d5ba397e8996c8e08093e46ca7e76ab75081137441c04c2d4f2e812ecc751 mthibaut/centos7-tools-systemd```
+
+Then upload:
+```docker push mthibaut/centos7-tools-systemd:7.2l```
